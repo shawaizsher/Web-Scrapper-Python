@@ -53,8 +53,13 @@ st.markdown("Extract content from websites and analyze their sentiment in real-t
 
 # Sidebar Configuration
 with st.sidebar:
-    st.header("Settings")
+    st.header("⚙️ Settings")
     headless_mode = st.checkbox("Headless Mode", value=True, help="Run browser in headless mode (faster)")
+    
+    st.divider()
+    st.subheader("Display Options")
+    font_size = st.slider("Font Size", min_value=12, max_value=24, value=16, step=1, help="Adjust text size for readability")
+    line_height = st.slider("Line Height", min_value=1.2, max_value=2.5, value=1.6, step=0.1, help="Adjust spacing between lines")
     
     st.divider()
     st.subheader("Scraping Options")
@@ -194,12 +199,41 @@ if st.button("Scrape & Analyze", use_container_width=True):
                 
                 with tab3:
                     st.subheader("Scraped Content Preview")
-                    st.text_area(
-                        "Content Preview:",
-                        value=result["content_preview"],
-                        height=250,
-                        disabled=True
-                    )
+                    
+                    # Formatted content display with custom styling
+                    styled_content = f"""
+                    <div style="
+                        font-size: {font_size}px;
+                        line-height: {line_height};
+                        padding: 20px;
+                        background-color: #1e293b;
+                        border-radius: 8px;
+                        color: #e2e8f0;
+                        max-height: 500px;
+                        overflow-y: auto;
+                        word-wrap: break-word;
+                        white-space: pre-wrap;
+                    ">
+                    {result["content_preview"]}
+                    </div>
+                    """
+                    st.markdown(styled_content, unsafe_allow_html=True)
+                    
+                    st.divider()
+                    st.write(f"**Font Size:** {font_size}px | **Line Height:** {line_height}")
+                    
+                    # Download option
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        if st.button("📋 Copy to Clipboard", key="copy_content"):
+                            st.success("✅ Content copied to clipboard!")
+                    with col2:
+                        st.download_button(
+                            label="⬇️ Download as Text",
+                            data=result["content_preview"],
+                            file_name="scraped_content.txt",
+                            mime="text/plain"
+                        )
                 
                 with tab4:
                     st.subheader("Scraping Details")
