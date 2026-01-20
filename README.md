@@ -1,7 +1,7 @@
 # Web Scraper Bot
 
 A Streamlit app that launches a Selenium Chrome browser to scrape web pages, extract text (optionally focusing on specific HTML tags), surface prompt-aligned snippets, and run sentiment analysis with TextBlob. Styling is tuned for a dark theme.
-<img width="1919" height="886" alt="Screenshot 2026-01-20 205601" src="https://github.com/user-attachments/assets/7057094c-6758-4dcc-a703-7d778d9279ae" />
+<img width="1919" height="917" alt="Screenshot 2026-01-20 210824" src="https://github.com/user-attachments/assets/94b77c20-7661-4d64-b779-fa10852f98ac" />
 
 
 ## Features
